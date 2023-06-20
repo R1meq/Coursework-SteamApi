@@ -46,8 +46,8 @@ public class GameSessionFileStorageImpl implements GameSessionFileStorage {
         List<GameSession> gameSessions = readAllFiles(DIRNAME);
 
         if (gameSessions != null) {
-            for (GameSession game : gameSessions) {
-                hashMap.put(game.getGameId(), game);
+            for (GameSession gameSession : gameSessions) {
+                hashMap.put(gameSession.getSessionId(), gameSession);
 
                 idCounter.set(getLastId(DIRNAME));
             }
@@ -116,24 +116,9 @@ public class GameSessionFileStorageImpl implements GameSessionFileStorage {
                     String[] values = line.split(", ");
 
                     gameSession.setSessionId(Integer.parseInt(values[0]));
-
-                    if (Objects.equals(values[2], "null")) {
-                        gameSession.setStatusOfGame(null);
-                    } else {
-                        gameSession.setStatusOfGame(Status.valueOf(values[1]));
-                    }
-
-                    if (Objects.equals(values[2], "null")) {
-                        gameSession.setStartGame(null);
-                    } else {
-                        gameSession.setStartGame(String.valueOf((values[2])));
-                    }
-
-                    if (Objects.equals(values[3], "null")) {
-                        gameSession.setEndGame(null);
-                    } else {
-                        gameSession.setEndGame(String.valueOf((values[3])));
-                    }
+                    gameSession.setStatusOfGame(Status.valueOf(values[1]));
+                    gameSession.setStartGame(String.valueOf((values[2])));
+                    gameSession.setEndGame(String.valueOf((values[3])));
 
                     if (Objects.equals(values[4], "null")) {
                         gameSession.setUserId(null);

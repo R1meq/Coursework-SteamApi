@@ -59,9 +59,8 @@ public class GameControllerImpl implements GameController {
     @PutMapping("/{Id}")
     public ResponseEntity<Game> update(final @PathVariable("Id") Integer id,
                                        final @RequestBody Game game) {
-
         if (gameServiceImpl.getById(id) == null) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(gameServiceImpl.update(id, game));
     }
