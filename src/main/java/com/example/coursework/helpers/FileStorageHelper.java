@@ -69,16 +69,16 @@ public class FileStorageHelper {
         String filePath = null;
         File[] files = getCatalog(dirname);
 
-        for (File file : files) {
+        first: for (File file : files) {
             boolean skipHeaders = true;
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
-                while ((line = reader.readLine()) != null) {
+               second: while ((line = reader.readLine()) != null) {
                     if (!skipHeaders) {
                         String[] values = line.split(", ");
                         if (Integer.parseInt(values[0]) == id) {
                             filePath = file.getPath();
-                            break;
+                            break first;
                         }
                     } else {
                         skipHeaders = false;
